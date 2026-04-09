@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AR TREASURE HUNT - Barcode Print Sheet</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: #fff;
+        color: #111827;
+        font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+        padding: 24px;
+      }
+
+      .page {
+        max-width: 980px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 28px;
+        margin-bottom: 6px;
+      }
+
+      .intro {
+        text-align: center;
+        color: #4b5563;
+        font-size: 14px;
+        margin-bottom: 18px;
+      }
+
+      .controls {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 18px;
+      }
+
+      .btn {
+        border: 1px solid #d1d5db;
+        border-radius: 999px;
+        background: #111827;
+        color: #fff;
+        padding: 10px 16px;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .mapping-note {
+        max-width: 820px;
+        margin: 0 auto 18px;
+        padding: 12px 14px;
+        border: 1px solid #d1d5db;
+        border-radius: 12px;
+        background: #f9fafb;
+        font-size: 13px;
+        color: #374151;
+        line-height: 1.5;
+      }
+
+      .markers-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 18px;
+      }
+
+      .marker-card {
+        border: 2px solid #e5e7eb;
+        border-radius: 16px;
+        padding: 16px;
+        text-align: center;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .marker-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 999px;
+        color: #fff;
+        font-weight: 800;
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+
+      .marker-title {
+        font-size: 18px;
+        font-weight: 800;
+        margin-bottom: 4px;
+      }
+
+      .marker-meta {
+        font-size: 12px;
+        color: #6b7280;
+        margin-bottom: 12px;
+      }
+
+      .marker-frame {
+        background: #f9fafb;
+        border-radius: 12px;
+        padding: 12px;
+        margin-bottom: 12px;
+      }
+
+      .marker-img {
+        width: 180px;
+        height: 180px;
+        display: block;
+        margin: 0 auto;
+        image-rendering: pixelated;
+      }
+
+      .marker-note {
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        background: #fff;
+        padding: 10px 12px;
+        text-align: left;
+        font-size: 13px;
+        line-height: 1.5;
+        color: #374151;
+      }
+
+      .marker-note strong {
+        display: block;
+        margin-bottom: 4px;
+        color: #111827;
+      }
+
+      .footer-note {
+        margin-top: 18px;
+        padding: 12px 14px;
+        border: 1px dashed #d1d5db;
+        border-radius: 12px;
+        color: #4b5563;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+
+      @media print {
+        body {
+          padding: 12px;
+        }
+
+        .controls {
+          display: none;
+        }
+
+        .marker-card {
+          border-color: #cbd5e1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <h1>AR TREASURE HUNT Marker Sheet</h1>
+      <p class="intro">
+        Print this sheet and use the barcode markers for home testing.
+      </p>
+
+      <div class="controls">
+        <button class="btn" onclick="window.print()">Print Sheet</button>
+      </div>
+
+      <div class="mapping-note">
+        <strong>Barcode to location mapping:</strong><br />
+        0 = Block 5, 1 = Veg Canteen, 2 = GA Hall, 3 = Chemistry Lab, 4 =
+        Workshop. The game keeps the route hidden after start, so this sheet is
+        only for testing the fixed barcode locations at home.
+      </div>
+
+      <section class="markers-grid">
+        <article class="marker-card">
+          <div class="marker-badge" style="background: #2563eb">0</div>
+          <div class="marker-title">Block 5</div>
+          <div class="marker-meta">Barcode 0</div>
+          <div class="marker-frame">
+            <img
+              class="marker-img"
+              src="./markers/generated/barcode-0.png"
+              alt="Barcode 0 marker for Block 5"
+            />
+          </div>
+          <div class="marker-note">
+            <strong>Use for testing:</strong> Scan this when the route expects
+            Block 5.
+          </div>
+        </article>
+
+        <article class="marker-card">
+          <div class="marker-badge" style="background: #16a34a">1</div>
+          <div class="marker-title">Veg Canteen</div>
+          <div class="marker-meta">Barcode 1</div>
+          <div class="marker-frame">
+            <img
+              class="marker-img"
+              src="./markers/generated/barcode-1.png"
+              alt="Barcode 1 marker for Veg Canteen"
+            />
+          </div>
+          <div class="marker-note">
+            <strong>Use for testing:</strong> Scan this when the route expects
+            Veg Canteen.
+          </div>
+        </article>
+
+        <article class="marker-card">
+          <div class="marker-badge" style="background: #dc2626">2</div>
+          <div class="marker-title">GA Hall</div>
+          <div class="marker-meta">Barcode 2</div>
+          <div class="marker-frame">
+            <img
+              class="marker-img"
+              src="./markers/generated/barcode-2.png"
+              alt="Barcode 2 marker for GA Hall"
+            />
+          </div>
+          <div class="marker-note">
+            <strong>Use for testing:</strong> Scan this when the route expects
+            GA Hall.
+          </div>
+        </article>
+
+        <article class="marker-card">
+          <div class="marker-badge" style="background: #7c3aed">3</div>
+          <div class="marker-title">Chemistry Lab</div>
+          <div class="marker-meta">Barcode 3</div>
+          <div class="marker-frame">
+            <img
+              class="marker-img"
+              src="./markers/generated/barcode-3.png"
+              alt="Barcode 3 marker for Chemistry Lab"
+            />
+          </div>
+          <div class="marker-note">
+            <strong>Use for testing:</strong> Scan this when the route expects
+            Chemistry Lab.
+          </div>
+        </article>
+
+        <article class="marker-card">
+          <div class="marker-badge" style="background: #111827">4</div>
+          <div class="marker-title">Workshop</div>
+          <div class="marker-meta">Barcode 4</div>
+          <div class="marker-frame">
+            <img
+              class="marker-img"
+              src="./markers/generated/barcode-4.png"
+              alt="Barcode 4 marker for Workshop"
+            />
+          </div>
+          <div class="marker-note">
+            <strong>Use for testing:</strong> Scan this when the route expects
+            Workshop.
+          </div>
+        </article>
+      </section>
+
+      <div class="footer-note">
+        If you want to test the game exactly like the app, print this page and
+        place the cards around your home. The route order stays hidden on the
+        main game screen after lock.
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,8 +1,8 @@
 import SplashScreen from "./components/SplashScreen.jsx";
 import HUD from "./components/HUD_new.jsx";
-import VictoryScreen from "./components/VictoryScreen.jsx";
 import GameOverScreen from "./components/GameOverScreen.jsx";
 import MarkerPopup from "./components/MarkerPopup.jsx";
+import WrongCodeMessage from "./components/WrongCodeMessage.jsx";
 import ARScene from "./components/ARScene.jsx";
 import useGameState from "./hooks/useGameState.js";
 import useDeviceOrientation from "./hooks/useDeviceOrientation.js";
@@ -11,10 +11,16 @@ import "./App.css";
 export default function App() {
   const {
     phase,
-    position,
+    routes,
+    activeRoute,
+    progressIndex,
+    nextLocation,
+    collectedCode,
+    completeCode,
     turnNumber,
     moveHistory,
-    lastSymbolHit,
+    lastScanEvent,
+    round2Location,
     debugLog,
     onMarkerDetected,
     onMarkerLost,
@@ -31,6 +37,7 @@ export default function App() {
     >
       {phase === "splash" && (
         <SplashScreen
+          routes={routes}
           onLaunch={startGame}
           permissionState={permissionState}
           requestPermission={requestPermission}
@@ -47,13 +54,19 @@ export default function App() {
           />
 
           <HUD
-            position={position}
+            activeRoute={activeRoute}
+            progressIndex={progressIndex}
+            nextLocation={nextLocation}
+            collectedCode={collectedCode}
+            completeCode={completeCode}
             turnNumber={turnNumber}
             moveHistory={moveHistory}
-            lastSymbolHit={lastSymbolHit}
+            lastScanEvent={lastScanEvent}
           />
 
-          <MarkerPopup lastSymbolHit={lastSymbolHit} />
+          <MarkerPopup lastScanEvent={lastScanEvent} />
+
+          <WrongCodeMessage lastScanEvent={lastScanEvent} />
 
           {permissionState === "denied" && (
             <div className="permission-warning">
@@ -63,18 +76,10 @@ export default function App() {
         </>
       )}
 
-      {phase === "won" && (
-        <VictoryScreen
-          position={position}
-          turnNumber={turnNumber}
-          moveHistory={moveHistory}
-          onRestart={restartGame}
-        />
-      )}
-
       {phase === "gameover" && (
         <GameOverScreen
-          position={position}
+          round2Location={round2Location}
+          completeCode={completeCode}
           turnNumber={turnNumber}
           moveHistory={moveHistory}
           onRestart={restartGame}

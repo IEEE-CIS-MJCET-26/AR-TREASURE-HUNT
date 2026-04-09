@@ -189,22 +189,22 @@
     </style>
   </head>
   <body>
-    <h1>Snakes and Ladders Markers</h1>
+    <h1>AR TREASURE HUNT Markers</h1>
     <p class="intro">
       Print this page, cut out the markers, and place them in your play area.
-      This game uses barcode values 0 through 4 for symbol effects.
+      This game uses barcode values 0 through 4 for fixed location mapping.
     </p>
 
     <div class="markers-grid">
-      <!-- Marker 0: Big Ladder -->
+      <!-- Marker 0: Block 5 -->
       <div class="marker-card">
         <div class="marker-badge" style="background: #22c55e">0</div>
-        <div class="marker-title">🪜 Big Ladder</div>
+        <div class="marker-title">Block 5</div>
         <div class="marker-meta">
           Barcode: <strong>0</strong> (AR.js matrix marker)
         </div>
         <span class="type-tag" style="background: #dcfce7; color: #166534"
-          >LADDER – Move +10 Spaces</span
+          >LOCATION - BLOCK 5</span
         >
         <div class="ar-marker-wrapper">
           <img
@@ -214,21 +214,20 @@
           />
         </div>
         <div class="marker-instructions">
-          <strong>What happens:</strong>
-          Scanning this marker moves your token
-          <strong>10 spaces forward</strong> on the board.
+          <strong>Use this marker for:</strong>
+          Scanning when the route expects <strong>Block 5</strong>.
         </div>
       </div>
 
-      <!-- Marker 1: Small Ladder -->
+      <!-- Marker 1: Veg Canteen -->
       <div class="marker-card">
         <div class="marker-badge" style="background: #86efac">1</div>
-        <div class="marker-title">🪜 Small Ladder</div>
+        <div class="marker-title">Veg Canteen</div>
         <div class="marker-meta">
           Barcode: <strong>1</strong> (AR.js matrix marker)
         </div>
         <span class="type-tag" style="background: #dcfce7; color: #166534"
-          >LADDER – Move +3 Spaces</span
+          >LOCATION - VEG CANTEEN</span
         >
         <div class="ar-marker-wrapper">
           <img
@@ -238,21 +237,20 @@
           />
         </div>
         <div class="marker-instructions">
-          <strong>What happens:</strong>
-          Scanning this marker moves your token
-          <strong>3 spaces forward</strong> on the board.
+          <strong>Use this marker for:</strong>
+          Scanning when the route expects <strong>Veg Canteen</strong>.
         </div>
       </div>
 
-      <!-- Marker 2: Small Snake -->
+      <!-- Marker 2: GA Hall -->
       <div class="marker-card">
         <div class="marker-badge" style="background: #ef4444">2</div>
-        <div class="marker-title">🐍 Small Snake</div>
+        <div class="marker-title">GA Hall</div>
         <div class="marker-meta">
           Barcode: <strong>2</strong> (AR.js matrix marker)
         </div>
         <span class="type-tag" style="background: #fee2e2; color: #991b1b"
-          >SNAKE – Move -5 Spaces</span
+          >LOCATION - GA HALL</span
         >
         <div class="ar-marker-wrapper">
           <img
@@ -262,21 +260,20 @@
           />
         </div>
         <div class="marker-instructions">
-          <strong>What happens:</strong>
-          Scanning this marker moves your token
-          <strong>5 spaces backward</strong> on the board.
+          <strong>Use this marker for:</strong>
+          Scanning when the route expects <strong>GA Hall</strong>.
         </div>
       </div>
 
-      <!-- Marker 3: Medium Snake -->
+      <!-- Marker 3: Chemistry Lab -->
       <div class="marker-card">
         <div class="marker-badge" style="background: #dc2626">3</div>
-        <div class="marker-title">🐍 Medium Snake</div>
+        <div class="marker-title">Chemistry Lab</div>
         <div class="marker-meta">
           Barcode: <strong>3</strong> (AR.js matrix marker)
         </div>
         <span class="type-tag" style="background: #fee2e2; color: #991b1b"
-          >SNAKE – Return to Start</span
+          >LOCATION - CHEMISTRY LAB</span
         >
         <div class="ar-marker-wrapper">
           <img
@@ -286,21 +283,20 @@
           />
         </div>
         <div class="marker-instructions">
-          <strong>What happens:</strong>
-          Scanning this marker sends your token
-          <strong>back to position 0</strong> (the start).
+          <strong>Use this marker for:</strong>
+          Scanning when the route expects <strong>Chemistry Lab</strong>.
         </div>
       </div>
 
-      <!-- Marker 4: Big Snake -->
+      <!-- Marker 4: Workshop -->
       <div class="marker-card" style="border-color: #000; border-width: 3px">
         <div class="marker-badge" style="background: #000">4</div>
-        <div class="marker-title">🐍 Big Snake</div>
+        <div class="marker-title">Workshop</div>
         <div class="marker-meta">
           Barcode: <strong>4</strong> (AR.js matrix marker)
         </div>
         <span class="type-tag" style="background: #f3f4f6; color: #000"
-          >BIG SNAKE – Game Over</span
+          >LOCATION - WORKSHOP</span
         >
         <div class="ar-marker-wrapper">
           <img
@@ -310,9 +306,8 @@
           />
         </div>
         <div class="marker-instructions">
-          <strong>What happens:</strong>
-          Scanning this marker triggers the <strong>big snake</strong> and ends
-          the game immediately.
+          <strong>Use this marker for:</strong>
+          Scanning when the route expects <strong>Workshop</strong>.
         </div>
       </div>
     </div>

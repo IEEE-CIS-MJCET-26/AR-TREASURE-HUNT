@@ -1,8 +1,8 @@
 .debug-overlay {
   position: fixed;
-  top: 48%;
+  bottom: 64px;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   z-index: 1000;
   pointer-events: none;
   min-width: 220px;

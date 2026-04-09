@@ -4,11 +4,12 @@
   --bg: #0b1220;
   --bg-alt: #0f172a;
   --panel: #111827;
+  --overlay-panel: rgba(17, 24, 39, 0.78);
   --ink: #e5e7eb;
   --muted: #9ca3af;
   --line: #1f2937;
-  --ladder: #22d3ee;
-  --snake: #3b82f6;
+  --accent: #22d3ee;
+  --accent-2: #3b82f6;
   --alert: #ec4899;
   --disabled: #4b5563;
   --font-ui: "Manrope", system-ui, sans-serif;

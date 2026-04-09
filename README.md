@@ -1,10 +1,10 @@
 <div align="center">
 
-# Snakes and Ladders AR
+# AR TREASURE HUNT
 
-Mobile-first augmented reality board game built with React and Vite.
+Mobile-first augmented reality treasure hunt built with React and Vite.
 
-Players scan printed barcode markers to trigger ladders, snakes, and special effects while the game keeps track of position, turns, and move history.
+Players scan printed barcode markers in sequence to collect clue progress, reveal 3D hint models, and complete the round code.
 
 </div>
 
@@ -67,11 +67,11 @@ Players scan printed barcode markers to trigger ladders, snakes, and special eff
 
 ## Barcode Mapping
 
-- `0` - Big Ladder, move forward 10 spaces
-- `1` - Small Ladder, move forward 3 spaces
-- `2` - Small Snake, move back 5 spaces
-- `3` - Medium Snake, return to start
-- `4` - Instant Kill, game over
+- `0` - Block 5
+- `1` - Veg Canteen
+- `2` - GA Hall
+- `3` - Chemistry Lab
+- `4` - Workshop
 
 ## Marker Printing
 
