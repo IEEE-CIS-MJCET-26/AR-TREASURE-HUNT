@@ -1,30 +1,30 @@
-import { createRoot } from 'react-dom/client';
-import './index.css';
-import App from './App.jsx';
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.jsx";
+import Leaderboard from "./components/Leaderboard.jsx";
 
-/**
- * AR.js uses WebAssembly (OpenCV) for marker detection.
- * On desktop browsers without a real camera, the WASM buffer
- * gets a null/empty video stream and throws:
- *   "RuntimeError: memory access out of bounds"
- *
- * This handler silently swallows that specific crash so DevTools
- * doesn't pause and the simulation/"demo" mode still works fine.
- * On a real mobile device with a camera, the error never occurs.
- */
-window.addEventListener('unhandledrejection', (e) => {
-  if (e.reason instanceof Error &&
-      e.reason.message?.includes('memory access out of bounds')) {
-    e.preventDefault(); // stops DevTools pausing on this
-    return;
+// AR.js runs its marker detection in WebAssembly. With no real camera feed
+// (desktop browsers) it can throw "memory access out of bounds". Keep it
+// out of the way, but still visible in the console.
+const isWasmCameraCrash = (message) =>
+  typeof message === "string" && message.includes("memory access out of bounds");
+
+window.addEventListener("unhandledrejection", (event) => {
+  if (isWasmCameraCrash(event.reason?.message)) {
+    event.preventDefault();
+    console.warn("AR.js:", event.reason.message);
   }
 });
 
-window.addEventListener('error', (e) => {
-  if (e.message?.includes('memory access out of bounds')) {
-    e.preventDefault();
-    return;
+window.addEventListener("error", (event) => {
+  if (isWasmCameraCrash(event.message)) {
+    event.preventDefault();
+    console.warn("AR.js:", event.message);
   }
 });
 
-createRoot(document.getElementById('root')).render(<App />);
+const isLeaderboard = window.location.pathname.replace(/\/+$/, "") === "/leaderboard";
+
+createRoot(document.getElementById("root")).render(
+  isLeaderboard ? <Leaderboard /> : <App />,
+);

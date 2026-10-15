@@ -1,0 +1,266 @@
+.screen {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ── Top bar ── */
+
+.topBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: calc(12px + var(--safe-top)) var(--gutter) 12px;
+  background: rgba(13, 13, 13, 0.82);
+  border-bottom: 1px solid var(--line);
+}
+
+.teamName {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-size: 17px;
+  text-transform: uppercase;
+}
+
+.topMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: none;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.count {
+  font-family: var(--font-display);
+  font-size: 17px;
+  letter-spacing: 0.02em;
+  color: var(--gold);
+}
+
+.devBar {
+  position: absolute;
+  top: calc(60px + var(--safe-top));
+  left: var(--gutter);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.devBar button {
+  width: 32px;
+  height: 32px;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--bg);
+}
+
+/* ── Aim reticle ── */
+
+.reticle {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  z-index: 5;
+  width: min(62vw, 260px);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.reticle span {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border: 0 solid var(--gold);
+}
+
+.reticle span:nth-child(1) {
+  top: 0;
+  left: 0;
+  border-top-width: 3px;
+  border-left-width: 3px;
+}
+
+.reticle span:nth-child(2) {
+  top: 0;
+  right: 0;
+  border-top-width: 3px;
+  border-right-width: 3px;
+}
+
+.reticle span:nth-child(3) {
+  bottom: 0;
+  left: 0;
+  border-bottom-width: 3px;
+  border-left-width: 3px;
+}
+
+.reticle span:nth-child(4) {
+  bottom: 0;
+  right: 0;
+  border-bottom-width: 3px;
+  border-right-width: 3px;
+}
+
+/* ── Camera notices ── */
+
+.cameraPill {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  z-index: 6;
+  transform: translate(-50%, -50%);
+  padding: 8px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: rgba(13, 13, 13, 0.85);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.cameraBlock {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  padding: 80px var(--gutter) 260px;
+  background: var(--bg);
+}
+
+.cameraTitle {
+  font-size: 30px;
+  color: var(--gold);
+}
+
+.cameraSteps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 4px 0 8px 18px;
+  font-size: 15px;
+}
+
+/* ── Bottom sheets ── */
+
+.bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+}
+
+.sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 72dvh;
+  overflow-y: auto;
+  padding: 16px var(--gutter) calc(16px + var(--safe-bottom));
+  border-top: 2px solid var(--gold);
+  background: var(--panel);
+  animation: rise 180ms ease-out;
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheet {
+    animation: none;
+  }
+}
+
+.sheetGold {
+  border-top-color: var(--gold);
+  background: var(--gold);
+  color: var(--on-gold);
+}
+
+.sheetRed {
+  border-top-color: var(--ink);
+  background: var(--red);
+  color: var(--ink);
+}
+
+.sheetLabel {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.sheetTitle {
+  font-size: 30px;
+}
+
+.sheetText {
+  font-size: 16px;
+}
+
+.darkButton {
+  background: var(--on-gold);
+  color: var(--gold);
+}
+
+.darkButton:active {
+  background: #262626;
+}
+
+.clueHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.clueHead .sheetLabel {
+  color: var(--gold);
+  opacity: 1;
+}
+
+.modelButton {
+  flex: none;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--gold);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.clue {
+  font-size: 19px;
+  line-height: 1.4;
+}

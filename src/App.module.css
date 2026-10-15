@@ -1,0 +1,19 @@
+.centered {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  min-height: 100dvh;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: var(--gutter);
+}
+
+.title {
+  font-size: 30px;
+  color: var(--gold);
+}
+
+.text {
+  color: var(--muted);
+}

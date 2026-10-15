@@ -1,0 +1,41 @@
+.row {
+  display: flex;
+  gap: 8px;
+}
+
+.slot {
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--line-strong);
+  border-radius: var(--radius);
+  font-family: var(--font-display);
+  color: var(--ink);
+}
+
+.filled {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: var(--on-gold);
+}
+
+.sm .slot {
+  width: 40px;
+  height: 44px;
+  font-size: 22px;
+}
+
+.md .slot {
+  width: 48px;
+  height: 54px;
+  font-size: 28px;
+}
+
+.lg {
+  gap: 10px;
+}
+
+.lg .slot {
+  width: 64px;
+  height: 76px;
+  font-size: 44px;
+}

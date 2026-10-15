@@ -1,0 +1,15 @@
+.logos {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+}
+
+.adsophos {
+  height: 28px;
+}
