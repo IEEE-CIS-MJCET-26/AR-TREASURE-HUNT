@@ -5,8 +5,10 @@ import {
   MARKER_LOCATIONS,
   findRoute,
 } from "../game/data.js";
+import useLeaderboard from "../game/useLeaderboard.js";
 import ARScene from "./ARScene.jsx";
 import CodeSlots from "./CodeSlots.jsx";
+import LeaderboardList from "./LeaderboardList.jsx";
 import { ModelModal } from "./ModelClue.jsx";
 import ResultSheet from "./ResultSheet.jsx";
 import styles from "./PlayScreen.module.css";
@@ -47,9 +49,28 @@ function CameraNotice({ state }) {
   );
 }
 
+// Live leaderboard over the camera; the hunt keeps running underneath.
+function LeaderboardOverlay({ team, onClose }) {
+  const { board, error } = useLeaderboard();
+  return (
+    <div className={styles.boardOverlay} role="dialog" aria-modal="true">
+      <div className={styles.boardHead}>
+        <h2 className={`display ${styles.boardTitle}`}>Leaderboard</h2>
+        <button className={styles.topButton} type="button" onClick={onClose}>
+          Close
+        </button>
+      </div>
+      <div className={styles.boardBody}>
+        <LeaderboardList board={board} error={error} ownTeam={team} />
+      </div>
+    </div>
+  );
+}
+
 export default function PlayScreen({ team, result, onScan, onDismissResult }) {
   const [cameraState, setCameraState] = useState("starting");
   const [showModel, setShowModel] = useState(false);
+  const [showBoard, setShowBoard] = useState(false);
   const handleCameraState = useCallback((state) => setCameraState(state), []);
 
   const route = findRoute(team.routeId);
@@ -66,6 +87,13 @@ export default function PlayScreen({ team, result, onScan, onDismissResult }) {
           <span className={styles.count}>
             {team.found}/{CODE_LENGTH}
           </span>
+          <button
+            className={styles.topButton}
+            type="button"
+            onClick={() => setShowBoard(true)}
+          >
+            Leaderboard
+          </button>
         </span>
       </header>
 
@@ -125,6 +153,10 @@ export default function PlayScreen({ team, result, onScan, onDismissResult }) {
           )
         )}
       </div>
+
+      {showBoard && (
+        <LeaderboardOverlay team={team} onClose={() => setShowBoard(false)} />
+      )}
 
       {showModel && nextStop && (
         <ModelModal stop={nextStop} onClose={() => setShowModel(false)} />

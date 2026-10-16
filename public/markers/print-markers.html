@@ -3,386 +3,199 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AR Treasure Hunt Markers</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap"
+      rel="stylesheet"
+    />
     <style>
+      @page {
+        size: A4 portrait;
+        margin: 0;
+      }
+
       * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
       }
+
       body {
         background: #fff;
-        font-family: system-ui, sans-serif;
-        color: #111;
-        padding: 2rem;
+        color: #0d0d0d;
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
       }
 
-      h1 {
-        font-family: system-ui, sans-serif;
-        font-size: 1.6rem;
-        text-align: center;
-        margin-bottom: 0.4rem;
-        color: #0a0e1f;
-      }
-
-      .intro {
-        text-align: center;
-        font-size: 0.85rem;
-        color: #555;
-        margin-bottom: 2rem;
-      }
-
-      .markers-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 2.5rem;
-        max-width: 900px;
-        margin: 0 auto 3rem;
-      }
-
-      .marker-card {
-        border: 2px solid #e5e7eb;
-        border-radius: 16px;
-        padding: 1.5rem;
-        text-align: center;
-        page-break-inside: avoid;
-      }
-
-      .marker-badge {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        font-family: "Orbitron", monospace;
-        font-size: 0.85rem;
-        font-weight: 700;
-        color: white;
-        margin-bottom: 0.6rem;
-      }
-
-      .marker-title {
-        font-family: system-ui, sans-serif;
-        font-size: 1rem;
-        font-weight: 700;
-        margin-bottom: 0.3rem;
-      }
-
-      .marker-meta {
-        font-size: 0.78rem;
-        color: #888;
-        margin-bottom: 1rem;
-      }
-
-      /* The actual AR markers */
-      .ar-marker-wrapper {
+      .page {
         display: flex;
+        flex-direction: column;
         align-items: center;
-        justify-content: center;
-        background: #f9fafb;
-        border-radius: 10px;
-        padding: 1rem;
-        margin-bottom: 1rem;
+        justify-content: space-between;
+        width: 210mm;
+        height: 297mm;
+        padding: 18mm 16mm 14mm;
+        page-break-after: always;
+        break-after: page;
       }
 
-      /* Marker preview tiles */
-      .marker-img {
-        width: 180px;
-        height: 180px;
-        image-rendering: pixelated;
-        display: block;
+      .page:last-child {
+        page-break-after: auto;
+        break-after: auto;
       }
 
-      .marker-instructions {
-        font-size: 0.75rem;
-        color: #444;
-        line-height: 1.6;
-        text-align: left;
-        background: #f3f4f6;
-        border-radius: 8px;
-        padding: 0.6rem 0.8rem;
+      .top {
+        text-align: center;
       }
 
-      .marker-instructions strong {
-        display: block;
-        margin-bottom: 0.2rem;
-        font-size: 0.78rem;
-      }
-
-      .type-tag {
-        display: inline-block;
-        padding: 0.2rem 0.6rem;
-        border-radius: 20px;
-        font-size: 0.65rem;
-        font-weight: 600;
+      .event {
+        font-size: 12pt;
+        font-weight: 700;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
-        letter-spacing: 0.1em;
-        margin-bottom: 0.5rem;
+        color: #8b6d14;
       }
 
-      .instructions-section {
-        max-width: 720px;
-        margin: 0 auto 2rem;
-        border: 1px solid #e5e7eb;
-        border-radius: 16px;
-        padding: 1.5rem 2rem;
+      .place {
+        margin-top: 4mm;
+        font-family: "Russo One", "Arial Black", sans-serif;
+        font-size: 44pt;
+        line-height: 1.05;
+        text-transform: uppercase;
       }
 
-      .instructions-section h2 {
-        font-family: system-ui, sans-serif;
-        font-size: 1rem;
-        margin-bottom: 1rem;
-        color: #0a0e1f;
+      /* White quiet zone around the marker is required for detection. */
+      .marker {
+        padding: 12mm;
+        background: #fff;
       }
 
-      .step {
+      .marker img {
+        display: block;
+        width: 140mm;
+        height: 140mm;
+        image-rendering: pixelated;
+      }
+
+      .bottom {
+        width: 100%;
         display: flex;
-        gap: 0.75rem;
-        margin-bottom: 0.8rem;
-        align-items: flex-start;
+        justify-content: space-between;
+        align-items: flex-end;
+        border-top: 1px solid #d4af37;
+        padding-top: 4mm;
+        font-size: 10pt;
+        color: #444;
       }
 
-      .step-num {
-        min-width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        background: #0a0e1f;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.7rem;
-        font-weight: 700;
-        margin-top: 0.1rem;
+      .marker-no {
+        font-family: "Russo One", "Arial Black", sans-serif;
+        font-size: 16pt;
+        color: #0d0d0d;
       }
 
-      .step p {
-        font-size: 0.82rem;
-        line-height: 1.55;
-        color: #333;
+      .print-bar {
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
+        padding: 12px 20px;
+        border: 0;
+        border-radius: 4px;
+        background: #d4af37;
+        color: #0d0d0d;
+        font: 700 14px system-ui, sans-serif;
+        cursor: pointer;
       }
 
-      .code-hint {
-        background: #fef9ec;
-        border: 1px solid #f5c400;
-        border-radius: 10px;
-        padding: 0.8rem 1rem;
-        font-size: 0.82rem;
-        color: #7a5800;
-        margin-top: 0.8rem;
+      @media screen {
+        body {
+          background: #ddd;
+        }
+        .page {
+          margin: 16px auto;
+          background: #fff;
+        }
       }
 
       @media print {
-        body {
-          padding: 1rem;
-        }
-        .no-print {
+        .print-bar {
           display: none;
-        }
-        .marker-card {
-          border-color: #ccc;
-        }
-        .ar-marker-wrapper {
-          background: white;
         }
       }
     </style>
   </head>
   <body>
-    <h1>AR TREASURE HUNT Markers</h1>
-    <p class="intro">
-      Print this page, cut out the markers, and place them in your play area.
-      This game uses barcode values 0 through 4 for fixed location mapping.
-    </p>
+    <section class="page">
+      <div class="top">
+        <p class="event">IEEE CIS MJCET · AR Treasure Hunt</p>
+        <h1 class="place">Block 5</h1>
+      </div>
+      <div class="marker">
+        <img src="./generated/barcode-0.png" alt="Marker 0, Block 5" />
+      </div>
+      <div class="bottom">
+        <span class="marker-no">Marker 0</span>
+        <span>Print at 100% scale. Keep the white border around the square.</span>
+      </div>
+    </section>
 
-    <div class="markers-grid">
-      <!-- Marker 0: Block 5 -->
-      <div class="marker-card">
-        <div class="marker-badge" style="background: #22c55e">0</div>
-        <div class="marker-title">Block 5</div>
-        <div class="marker-meta">
-          Barcode: <strong>0</strong> (AR.js matrix marker)
-        </div>
-        <span class="type-tag" style="background: #dcfce7; color: #166534"
-          >LOCATION - BLOCK 5</span
-        >
-        <div class="ar-marker-wrapper">
-          <img
-            class="marker-img"
-            src="./generated/barcode-0.png"
-            alt="Barcode 0 AR Marker"
-          />
-        </div>
-        <div class="marker-instructions">
-          <strong>Use this marker for:</strong>
-          Scanning when the route expects <strong>Block 5</strong>.
-        </div>
+    <section class="page">
+      <div class="top">
+        <p class="event">IEEE CIS MJCET · AR Treasure Hunt</p>
+        <h1 class="place">Veg Canteen</h1>
       </div>
+      <div class="marker">
+        <img src="./generated/barcode-1.png" alt="Marker 1, Veg Canteen" />
+      </div>
+      <div class="bottom">
+        <span class="marker-no">Marker 1</span>
+        <span>Print at 100% scale. Keep the white border around the square.</span>
+      </div>
+    </section>
 
-      <!-- Marker 1: Veg Canteen -->
-      <div class="marker-card">
-        <div class="marker-badge" style="background: #86efac">1</div>
-        <div class="marker-title">Veg Canteen</div>
-        <div class="marker-meta">
-          Barcode: <strong>1</strong> (AR.js matrix marker)
-        </div>
-        <span class="type-tag" style="background: #dcfce7; color: #166534"
-          >LOCATION - VEG CANTEEN</span
-        >
-        <div class="ar-marker-wrapper">
-          <img
-            class="marker-img"
-            src="./generated/barcode-1.png"
-            alt="Barcode 1 AR Marker"
-          />
-        </div>
-        <div class="marker-instructions">
-          <strong>Use this marker for:</strong>
-          Scanning when the route expects <strong>Veg Canteen</strong>.
-        </div>
+    <section class="page">
+      <div class="top">
+        <p class="event">IEEE CIS MJCET · AR Treasure Hunt</p>
+        <h1 class="place">GA Hall</h1>
       </div>
+      <div class="marker">
+        <img src="./generated/barcode-2.png" alt="Marker 2, GA Hall" />
+      </div>
+      <div class="bottom">
+        <span class="marker-no">Marker 2</span>
+        <span>Print at 100% scale. Keep the white border around the square.</span>
+      </div>
+    </section>
 
-      <!-- Marker 2: GA Hall -->
-      <div class="marker-card">
-        <div class="marker-badge" style="background: #ef4444">2</div>
-        <div class="marker-title">GA Hall</div>
-        <div class="marker-meta">
-          Barcode: <strong>2</strong> (AR.js matrix marker)
-        </div>
-        <span class="type-tag" style="background: #fee2e2; color: #991b1b"
-          >LOCATION - GA HALL</span
-        >
-        <div class="ar-marker-wrapper">
-          <img
-            class="marker-img"
-            src="./generated/barcode-2.png"
-            alt="Barcode 2 AR Marker"
-          />
-        </div>
-        <div class="marker-instructions">
-          <strong>Use this marker for:</strong>
-          Scanning when the route expects <strong>GA Hall</strong>.
-        </div>
+    <section class="page">
+      <div class="top">
+        <p class="event">IEEE CIS MJCET · AR Treasure Hunt</p>
+        <h1 class="place">Chemistry Lab</h1>
       </div>
+      <div class="marker">
+        <img src="./generated/barcode-3.png" alt="Marker 3, Chemistry Lab" />
+      </div>
+      <div class="bottom">
+        <span class="marker-no">Marker 3</span>
+        <span>Print at 100% scale. Keep the white border around the square.</span>
+      </div>
+    </section>
 
-      <!-- Marker 3: Chemistry Lab -->
-      <div class="marker-card">
-        <div class="marker-badge" style="background: #dc2626">3</div>
-        <div class="marker-title">Chemistry Lab</div>
-        <div class="marker-meta">
-          Barcode: <strong>3</strong> (AR.js matrix marker)
-        </div>
-        <span class="type-tag" style="background: #fee2e2; color: #991b1b"
-          >LOCATION - CHEMISTRY LAB</span
-        >
-        <div class="ar-marker-wrapper">
-          <img
-            class="marker-img"
-            src="./generated/barcode-3.png"
-            alt="Barcode 3 AR Marker"
-          />
-        </div>
-        <div class="marker-instructions">
-          <strong>Use this marker for:</strong>
-          Scanning when the route expects <strong>Chemistry Lab</strong>.
-        </div>
+    <section class="page">
+      <div class="top">
+        <p class="event">IEEE CIS MJCET · AR Treasure Hunt</p>
+        <h1 class="place">Workshop</h1>
       </div>
+      <div class="marker">
+        <img src="./generated/barcode-4.png" alt="Marker 4, Workshop" />
+      </div>
+      <div class="bottom">
+        <span class="marker-no">Marker 4</span>
+        <span>Print at 100% scale. Keep the white border around the square.</span>
+      </div>
+    </section>
 
-      <!-- Marker 4: Workshop -->
-      <div class="marker-card" style="border-color: #000; border-width: 3px">
-        <div class="marker-badge" style="background: #000">4</div>
-        <div class="marker-title">Workshop</div>
-        <div class="marker-meta">
-          Barcode: <strong>4</strong> (AR.js matrix marker)
-        </div>
-        <span class="type-tag" style="background: #f3f4f6; color: #000"
-          >LOCATION - WORKSHOP</span
-        >
-        <div class="ar-marker-wrapper">
-          <img
-            class="marker-img"
-            src="./generated/barcode-4.png"
-            alt="Barcode 4 AR Marker"
-          />
-        </div>
-        <div class="marker-instructions">
-          <strong>Use this marker for:</strong>
-          Scanning when the route expects <strong>Workshop</strong>.
-        </div>
-      </div>
-    </div>
-
-    <!-- Instructions -->
-    <div class="instructions-section">
-      <h2>📋 How to Play</h2>
-      <div class="step">
-        <div class="step-num">1</div>
-        <p>
-          Print this page (use your browser's Print function). Cut out the 8
-          marker cards.
-        </p>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <p>
-          Place markers around your home or space, roughly in the directions
-          described (or anywhere for testing).
-        </p>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <p>
-          Open <code>index.html</code> on your phone using a local dev server
-          (or ngrok for HTTPS). Tap <strong>Launch AR Hunt</strong>.
-        </p>
-      </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <p>
-          Point your phone camera at a printed marker. This route uses barcode
-          values 0 through 7 in sequence.
-        </p>
-      </div>
-      <div class="step">
-        <div class="step-num">5</div>
-        <p>
-          Watch the arrow rotate as you physically turn your phone. Follow it to
-          the next marker.
-        </p>
-      </div>
-      <div class="step">
-        <div class="step-num">6</div>
-        <p>
-          No physical markers? Use the
-          <strong>🎭 Simulate Marker</strong> button in the app to test all 8
-          checkpoints.
-        </p>
-      </div>
-
-      <div class="code-hint">
-        🔑 <strong>Secret Code:</strong> Collect all 4 digits (from Markers A,
-        C, F and H) to reveal the treasure code: <strong>7 – 3 – 4 – 8</strong>
-      </div>
-    </div>
-
-    <div style="text-align: center; margin-top: 2rem">
-      <button
-        class="no-print"
-        onclick="window.print()"
-        style="
-          padding: 0.7rem 2rem;
-          background: #0a0e1f;
-          color: white;
-          border: none;
-          border-radius: 30px;
-          font-family: &quot;Orbitron&quot;, monospace;
-          font-size: 0.85rem;
-          cursor: pointer;
-          letter-spacing: 0.05em;
-        "
-      >
-        🖨️ Print Markers
-      </button>
-    </div>
+    <button class="print-bar" type="button" onclick="window.print()">
+      Print markers
+    </button>
   </body>
 </html>
