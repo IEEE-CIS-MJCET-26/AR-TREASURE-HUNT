@@ -25,9 +25,16 @@ function localApi() {
           const chunks = [];
           for await (const chunk of req) chunks.push(chunk);
           const hasBody = !["GET", "HEAD"].includes(req.method);
+          // Over HTTPS Vite serves HTTP/2, whose headers object also holds
+          // pseudo-headers (":method") and a symbol key; Request rejects both.
+          const headers = new Headers();
+          for (const [key, value] of Object.entries(req.headers)) {
+            if (key.startsWith(":") || value === undefined) continue;
+            headers.set(key, Array.isArray(value) ? value.join(", ") : value);
+          }
           const request = new Request(url, {
             method: req.method,
-            headers: req.headers,
+            headers,
             body: hasBody ? Buffer.concat(chunks) : undefined,
           });
 
