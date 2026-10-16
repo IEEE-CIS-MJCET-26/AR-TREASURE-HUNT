@@ -89,7 +89,7 @@ const ARScene = memo(function ARScene({ onMarker, onCameraState }) {
         });
 
     const attachMirror = () => {
-      const source = document.querySelector("video.arjs-video");
+      const source = document.querySelector("#arjs-video");
       if (!source?.srcObject) return;
       window.clearInterval(mirrorTimer);
       preview.srcObject = source.srcObject;
@@ -116,7 +116,7 @@ const ARScene = memo(function ARScene({ onMarker, onCameraState }) {
       preview.srcObject = null;
 
       // Turn the camera off when leaving the hunt.
-      document.querySelectorAll("video.arjs-video").forEach((video) => {
+      document.querySelectorAll("video#arjs-video").forEach((video) => {
         video.srcObject?.getTracks?.().forEach((track) => track.stop());
         video.remove();
       });

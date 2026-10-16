@@ -142,6 +142,13 @@ img {
 
 /* ── AR camera layer (nodes created by A-Frame / AR.js, so global) ── */
 
+/* AR.js appends its own sized video and canvas to <body>; never let them
+   make the camera screen scroll. */
+html:has(.ar-frame),
+body:has(.ar-frame) {
+  overflow: hidden;
+}
+
 .ar-frame {
   position: fixed;
   inset: 0;
@@ -171,7 +178,7 @@ img {
 }
 
 /* AR.js's own video: kept alive for tracking, never shown. */
-video.arjs-video {
+#arjs-video {
   position: fixed !important;
   inset: 0 !important;
   width: 100vw !important;
